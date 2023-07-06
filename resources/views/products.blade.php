@@ -4,6 +4,9 @@
         <div class="col-md-2"></div>
         <div class="col-md-8">
             <h2 class="my-5 text-center">Laravel Ajax CRUD App</h2>
+            <a class="btn btn-primary my-3" data-bs-toggle="modal" data-bs-target="#addModal">
+                Add product
+            </a>
             <div class="table-data">
                 <table class="table table-bordered">
                     <thead>

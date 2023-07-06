@@ -17,6 +17,7 @@
         @yield('content')
     </div>
 
+    @include('partials.products_add_modal')
     @include('partials.products_js')
 </body>
 
