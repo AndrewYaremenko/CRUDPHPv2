@@ -14,7 +14,7 @@ class ProductController extends Controller
         return view('products', compact('products'));
     }
 
-    public function create(Request $request)
+    public function store(Request $request)
     {
         try {
             $request->validate([

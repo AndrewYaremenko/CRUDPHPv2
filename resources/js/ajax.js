@@ -9,7 +9,7 @@ $(function () {
         e.preventDefault();
         let title = $('#title');
         let price = $('#price');
-        let route = $('meta[name="product-create-route"]').attr('content');
+        let route = $('meta[name="product-store-route"]').attr('content');
 
         $.ajax({
             url: route,

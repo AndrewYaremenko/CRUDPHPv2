@@ -1,5 +1,5 @@
 <div class="modal fade" id="addModal" tabindex="-1" aria-labelledby="addModalLabel" aria-hidden="true">
-    <form action="{{ route('product.create') }}" method="POST" id="addProductForm">
+    <form action="{{ route('product.store') }}" method="POST" id="addProductForm">
         @csrf
         <div class="modal-dialog">
             <div class="modal-content">

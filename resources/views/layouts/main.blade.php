@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     <link rel="stylesheet" href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <meta name="product-create-route" content="{{ route('product.create') }}">
+    <meta name="product-store-route" content="{{ route('product.store') }}">
     <link rel="icon" type="image/x-icon" href="{{ asset('favicon/icon.ico') }}">
     <title>CRUD</title>
 </head>
