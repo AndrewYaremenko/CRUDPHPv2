@@ -18,19 +18,23 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <th scope="row">1</th>
-                            <td>Mark</td>
-                            <td>Otto</td>
-                            <td>
-                                <a href="#" class="btn btn-success"><i class="las la-pen"></i></a>
-                                <a href="#" class="btn btn-danger"><i class="las la-trash"></i></a>
-                            </td>
-                        </tr>
+                        @foreach ($products as $product)
+                            <tr>
+                                <th scope="row">{{ $product->id }}</th>
+                                <td>{{ $product->title }}</td>
+                                <td>{{ $product->price }}</td>
+                                <td>
+                                    <a href="#" class="btn btn-success"><i class="las la-pen"></i></a>
+                                    <a href="#" class="btn btn-danger"><i class="las la-trash"></i></a>
+                                </td>
+                            </tr>
+                        @endforeach
                     </tbody>
                 </table>
+                <div class="pagination">
+                    {{ $products->links() }}
+                </div>
             </div>
         </div>
-
     </div>
 @endsection

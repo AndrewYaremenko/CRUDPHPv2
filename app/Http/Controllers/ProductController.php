@@ -10,19 +10,16 @@ class ProductController extends Controller
 {
     public function index()
     {
-        return view('products');
+        $products = Product::latest()->paginate(5);
+        return view('products', compact('products'));
     }
 
     public function create(Request $request)
     {
         try {
             $request->validate([
-                'title' => 'string|required|unique:products',
-                'price' => 'numeric|required',
-            ], [
-                'title.required' => 'Title is required',
-                'title.unique' => 'Title already exists',
-                'price.required' => 'Price is required',
+                'title' => 'required|string|unique:products',
+                'price' => 'required|numeric',
             ]);
 
             $product = Product::create([

@@ -21,6 +21,9 @@ $(function () {
                 if (response.status == 'success') {
                     $('#addModal').modal('hide');
                     $('#addProductForm')[0].reset();
+
+                    $('.table-data').load(location.href + ' .table-data');
+
                 }
             },
             error: function (error) {
