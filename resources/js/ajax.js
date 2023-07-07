@@ -15,11 +15,18 @@ $(function () {
             url: route,
             method: 'post',
             data: { title: title.val(), price: price.val() },
-            success: function (request) {
-                
+            success: function (response) {
+                $('#title-error').text('');
+                $('#price-error').text('');
+                if (response.status == 'success') {
+                    $('#addModal').modal('hide');
+                    $('#addProductForm')[0].reset();
+                }
             },
             error: function (error) {
                 let err = error.responseJSON;
+                $('#title-error').text('');
+                $('#price-error').text('');
                 $.each(err.errors, function (field, errors) {
                     $('#' + field + '-error').text(errors[0]);
                 });
