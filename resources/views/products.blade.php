@@ -24,7 +24,10 @@
                                 <td>{{ $product->title }}</td>
                                 <td>{{ $product->price }}</td>
                                 <td>
-                                    <a href="#" class="btn btn-success"><i class="las la-pen"></i></a>
+                                    <a href="#" class="btn btn-success" data-bs-toggle="modal"
+                                        data-bs-target="#updateModal" data-id="{{ $product->id }}"
+                                        data-title="{{ $product->title }}" data-price="{{ $product->price }}" id="updateProductForm"><i
+                                            class="las la-pen"></i></a>
                                     <a href="#" class="btn btn-danger"><i class="las la-trash"></i></a>
                                 </td>
                             </tr>

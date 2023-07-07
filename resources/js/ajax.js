@@ -36,4 +36,15 @@ $(function () {
             }
         });
     });
+
+    $(document).on('click', '#updateProductForm', function (e) {
+        e.preventDefault();
+        let id = $(this).data('id');
+        let title = $(this).data('title');
+        let price = $(this).data('price');
+
+        $('#update_id').val(id);
+        $('#update_title').val(title);
+        $('#update_price').val(price);
+    });
 });

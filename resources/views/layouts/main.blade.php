@@ -20,6 +20,7 @@
     </div>
 
     @include('partials.products_add_modal')
+    @include('partials.products_update_modal')
     @include('partials.products_js')
 </body>
 
