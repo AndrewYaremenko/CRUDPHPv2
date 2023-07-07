@@ -37,7 +37,7 @@ $(function () {
         });
     });
 
-    $(document).on('click', '#updateProductForm', function (e) {
+    $(document).on('click', '#updateProductBtn', function (e) {
         e.preventDefault();
         let id = $(this).data('id');
         let title = $(this).data('title');
