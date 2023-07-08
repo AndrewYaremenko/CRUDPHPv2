@@ -28,8 +28,10 @@
                                         data-bs-target="#updateModal" data-id="{{ $product->id }}"
                                         data-title="{{ $product->title }}" data-price="{{ $product->price }}"
                                         data-update-route="{{ route('products.update', ['product' => $product->id]) }}"
-                                        id="updateProductBtn"><i class="las la-pen"></i>{{ $product->id }}</a>
-                                    <a href="#" class="btn btn-danger"><i class="las la-trash"></i></a>
+                                        id="updateProductBtn"><i class="las la-pen"></i></a>
+                                    <a href="#" class="btn btn-danger" data-id="{{ $product->id }}"
+                                        data-update-route="{{ route('products.destroy', ['product' => $product->id]) }}"
+                                        id="destroyProductBtn"><i class="las la-trash"></i></a>
                                 </td>
                             </tr>
                         @endforeach

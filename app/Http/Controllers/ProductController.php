@@ -45,4 +45,11 @@ class ProductController extends Controller
             return response()->json(['errors' => $exception->errors()], 422);
         }
     }
+
+    public function destroy(Product $product)
+    {
+        $product->delete();
+
+        return response()->json(['status' => 'success']);
+    }
 }
