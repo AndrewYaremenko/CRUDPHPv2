@@ -26,8 +26,9 @@
                                 <td>
                                     <a href="#" class="btn btn-success" data-bs-toggle="modal"
                                         data-bs-target="#updateModal" data-id="{{ $product->id }}"
-                                        data-title="{{ $product->title }}" data-price="{{ $product->price }}" id="updateProductBtn"><i
-                                            class="las la-pen"></i></a>
+                                        data-title="{{ $product->title }}" data-price="{{ $product->price }}"
+                                        data-update-route="{{ route('products.update', ['product' => $product->id]) }}"
+                                        id="updateProductBtn"><i class="las la-pen"></i>{{ $product->id }}</a>
                                     <a href="#" class="btn btn-danger"><i class="las la-trash"></i></a>
                                 </td>
                             </tr>

@@ -14,24 +14,35 @@ class ProductController extends Controller
         return view('products', compact('products'));
     }
 
-    public function store(Request $request)
+    public function store()
     {
         try {
-            $request->validate([
+            $validatedData = request()->validate([
                 'title' => 'required|string|unique:products',
                 'price' => 'required|numeric',
             ]);
 
-            $product = Product::create([
-                'title' => $request->input('title'),
-                'price' => $request->input('price'),
-            ]);
+            Product::create($validatedData);
 
             return response()->json(['status' => 'success']);
-
         } catch (ValidationException $exception) {
-            $errors = $exception->errors();
-            return response()->json(['errors' => $errors], 422);
+            return response()->json(['errors' => $exception->errors()], 422);
+        }
+    }
+
+    public function update(Product $product)
+    {
+        try {
+            $validatedData = request()->validate([
+                'title' => 'required|string|unique:products,title,' . request()->id,
+                'price' => 'required|numeric',
+            ]);
+
+            $product->update($validatedData); 
+
+            return response()->json(['status' => 'success']);
+        } catch (ValidationException $exception) {
+            return response()->json(['errors' => $exception->errors()], 422);
         }
     }
 }
