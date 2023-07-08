@@ -17,6 +17,7 @@ $(function () {
     sendAjax(route, 'post', { title: title.val(), price: price.val() }, function (response) {
       resetFormAndModal('#addProductForm', '#addModal'); // Reset the form and close the modal after successful AJAX request
       $('.table-data').load(location.href + ' .table-data'); // Refresh the table data after successful AJAX request
+      toastr.success('Product is saved!', 'Success!');
     }, handleAjaxError);
   });
 
@@ -46,6 +47,7 @@ $(function () {
     sendAjax(route, 'PATCH', { id: id, title: title, price: price }, function (response) {
       resetFormAndModal('#updateProductForm', '#updateModal'); // Reset the form and close the modal after successful AJAX request
       $('.table-data').load(location.href + ' .table-data'); // Refresh the table data after successful AJAX request
+      toastr.success('Product is updated!', 'Success!');
     }, handleAjaxError);
   });
 
@@ -59,9 +61,10 @@ $(function () {
     let id = $(this).data('id');
     let route = $('#destroyProductBtn[data-id="' + id + '"]').data('update-route'); // Get the route for destroy the product
 
-    if(confirm('Are you sure to delete product?')) {
+    if (confirm('Are you sure to delete product?')) {
       sendAjax(route, 'POST', null, function (response) {
         $('.table-data').load(location.href + ' .table-data'); // Refresh the table data after successful AJAX request
+        toastr.success('Product is deleted!', 'Success!');
       }, null);
     }
   });

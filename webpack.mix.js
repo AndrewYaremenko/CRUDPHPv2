@@ -1,4 +1,5 @@
 const mix = require('laravel-mix');
+const path = require('path');
 
 /*
  |--------------------------------------------------------------------------
@@ -15,7 +16,17 @@ mix.autoload({
     jquery: ['$', 'window.jQuery']
 });
 
+mix.webpackConfig({
+    resolve: {
+        alias: {
+            'toastr': path.resolve(__dirname, 'node_modules/toastr')
+        }
+    }
+});
+
 mix.js('resources/js/app.js', 'public/js')
     .js('resources/js/ajax.js', 'public/js')
     .sass('resources/sass/app.scss', 'public/css')
     .sourceMaps();
+
+    
