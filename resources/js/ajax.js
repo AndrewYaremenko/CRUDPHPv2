@@ -5,6 +5,13 @@ $.ajaxSetup({
 });
 
 $(function () {
+
+  $(document).on('click', '#createProductBtn', function (e) {
+    e.preventDefault();
+
+    $('#title-error, #price-error').text('');
+  });
+
   $(document).on('click', '#saveProduct', function (e) {
     e.preventDefault();
     let title = $('#title');
@@ -15,7 +22,7 @@ $(function () {
       resetFormAndModal('#addProductForm', '#addModal');
       loadTableData();
       toastr.success('Product is saved!', 'Success!');
-    }, handleAjaxError);
+    }, handleAjaxSaveError);
   });
 
   $(document).on('click', '#updateProductBtn', function (e) {
@@ -38,7 +45,7 @@ $(function () {
       resetFormAndModal('#updateProductForm', '#updateModal');
       loadTableData();
       toastr.success('Product is updated!', 'Success!');
-    }, handleAjaxError);
+    }, handleAjaxUpdateError);
   });
 
   $(document).on('click', '#destroyProductBtn', function (e) {
@@ -62,6 +69,24 @@ $(function () {
     loadTableDataWithPage(route, page);
   });
 
+  //search
+  $(document).on('keyup', '#search', function (e) {
+    e.preventDefault();
+
+    let route = $('meta[name="products-search-route"]').attr('content');
+    let search_string = $('#search').val();
+    let currentPage = $('.pagination .active').text();
+
+    $.ajax({
+      url: route,
+      method: 'GET',
+      data: { search: search_string, page: currentPage },
+      success: function (response) {
+        $('.table-data').html(response);
+      }
+    })
+  });
+
   function loadTableData() {
     let currentPage = $('.pagination .active').text();
     let route = $('meta[name="products-pagination-route"]').attr('content');
@@ -69,13 +94,20 @@ $(function () {
   }
 
   function loadTableDataWithPage(route, page) {
+    let search = $('#search').val();
+
     $.ajax({
-      url: route + '?page=' + page,
+      url: route + '?page=' + page + '&search=' + search,
       success: function (response) {
         $('.table-data').html(response);
+
+        if ($('.table-data tbody tr').length === 0 && page > 1) {
+          loadTableDataWithPage(route, page - 1);
+        }
       }
     });
   }
+
 
   function sendAjax(url, method, data, successCallback, errorCallback) {
     $.ajax({
@@ -99,11 +131,19 @@ $(function () {
     $('#update_title-error, #update_price-error').text('');
   }
 
-  function handleAjaxError(error) {
+  function handleAjaxSaveError(error) {
     let err = error.responseJSON;
-    $('#title-error, #price-error, #update_title-error, #update_price-error').text('');
+    $('#title-error, #price-error').text('');
     $.each(err.errors, function (field, errors) {
       $('#' + field + '-error').text(errors[0]);
+    });
+  }
+
+  function handleAjaxUpdateError(error) {
+    let err = error.responseJSON;
+    $('#update_title-error, #update_price-error').text('');
+    $.each(err.errors, function (field, errors) {
+      $('#update_' + field + '-error').text(errors[0]);
     });
   }
 });

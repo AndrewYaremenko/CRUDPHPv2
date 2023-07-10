@@ -10,6 +10,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="products-store-route" content="{{ route('products.store') }}">
     <meta name="products-pagination-route" content="{{ route('products.pagination') }}">
+    <meta name="products-search-route" content="{{ route('products.search') }}">
     <link rel="icon" type="image/x-icon" href="{{ asset('favicon/icon.ico') }}">
     <title>CRUD</title>
 </head>

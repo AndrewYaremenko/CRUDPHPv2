@@ -4,9 +4,10 @@
         <div class="col-md-2"></div>
         <div class="col-md-8">
             <h2 class="my-5 text-center">Laravel Ajax CRUD App</h2>
-            <a class="btn btn-primary my-3" data-bs-toggle="modal" data-bs-target="#addModal">
+            <a class="btn btn-primary my-3" data-bs-toggle="modal" data-bs-target="#addModal" id="createProductBtn">
                 Add product
             </a>
+            <input type="text" name="search" id="search" placeholder="Search product" class="mb-3 form-control" value={{ Session::get('search', '') }}>
             <div class="table-data">
                 <table class="table table-bordered">
                     <thead>
