@@ -1,3 +1,4 @@
+// Set CSRF token for AJAX requests
 $.ajaxSetup({
   headers: {
     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -5,13 +6,13 @@ $.ajaxSetup({
 });
 
 $(function () {
-
+  // Handle click event for create product button
   $(document).on('click', '#createProductBtn', function (e) {
     e.preventDefault();
-
     $('#title-error, #price-error').text('');
   });
 
+  // Handle click event for save product button
   $(document).on('click', '#saveProduct', function (e) {
     e.preventDefault();
     let title = $('#title');
@@ -25,6 +26,7 @@ $(function () {
     }, handleAjaxSaveError);
   });
 
+  // Handle click event for update product button
   $(document).on('click', '#updateProductBtn', function (e) {
     e.preventDefault();
     let id = $(this).data('id');
@@ -34,6 +36,7 @@ $(function () {
     setUpdateFields(id, title, price);
   });
 
+  // Handle click event for update product button inside the modal
   $(document).on('click', '#updateProduct', function (e) {
     e.preventDefault();
     let title = $('#update_title').val();
@@ -48,6 +51,7 @@ $(function () {
     }, handleAjaxUpdateError);
   });
 
+  // Handle click event for destroy product button
   $(document).on('click', '#destroyProductBtn', function (e) {
     e.preventDefault();
     let id = $(this).data('id');
@@ -61,6 +65,7 @@ $(function () {
     }
   });
 
+  // Handle click event for pagination links
   $(document).on('click', '.pagination a', function (e) {
     e.preventDefault();
     let page = $(this).attr('href').split('page=')[1];
@@ -69,7 +74,7 @@ $(function () {
     loadTableDataWithPage(route, page);
   });
 
-  //search
+  // Handle keyup event for search input
   $(document).on('keyup', '#search', function (e) {
     e.preventDefault();
 
@@ -77,38 +82,32 @@ $(function () {
     let search_string = $('#search').val();
     let currentPage = $('.pagination .active').text();
 
-    $.ajax({
-      url: route,
-      method: 'GET',
-      data: { search: search_string, page: currentPage },
-      success: function (response) {
-        $('.table-data').html(response);
-      }
-    })
+    sendAjax(route, 'GET', { search: search_string, page: currentPage }, function (response) {
+      $('.table-data').html(response);
+    });
   });
 
+  // Load table data for the current page
   function loadTableData() {
     let currentPage = $('.pagination .active').text();
     let route = $('meta[name="products-pagination-route"]').attr('content');
     loadTableDataWithPage(route, currentPage);
   }
 
+  // Load table data for the specified page
   function loadTableDataWithPage(route, page) {
     let search = $('#search').val();
 
-    $.ajax({
-      url: route + '?page=' + page + '&search=' + search,
-      success: function (response) {
-        $('.table-data').html(response);
+    sendAjax(route + '?page=' + page + '&search=' + search, 'GET', null, function (response) {
+      $('.table-data').html(response);
 
-        if ($('.table-data tbody tr').length === 0 && page > 1) {
-          loadTableDataWithPage(route, page - 1);
-        }
+      if ($('.table-data tbody tr').length === 0 && page > 1) {
+        loadTableDataWithPage(route, page - 1);
       }
     });
   }
 
-
+  // Send AJAX request
   function sendAjax(url, method, data, successCallback, errorCallback) {
     $.ajax({
       url,
@@ -119,11 +118,13 @@ $(function () {
     });
   }
 
+  // Reset form and modal
   function resetFormAndModal(formId, modalId) {
     $(modalId).modal('hide');
     $(formId)[0].reset();
   }
 
+  // Set update fields in the modal
   function setUpdateFields(id, title, price) {
     $('#update_id').val(id);
     $('#update_title').val(title);
@@ -131,6 +132,7 @@ $(function () {
     $('#update_title-error, #update_price-error').text('');
   }
 
+  // Handle AJAX save errors
   function handleAjaxSaveError(error) {
     let err = error.responseJSON;
     $('#title-error, #price-error').text('');
@@ -139,6 +141,7 @@ $(function () {
     });
   }
 
+  // Handle AJAX update errors
   function handleAjaxUpdateError(error) {
     let err = error.responseJSON;
     $('#update_title-error, #update_price-error').text('');
